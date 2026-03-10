@@ -10,10 +10,6 @@
 
 class Game {
 public:
-    static constexpr int WINDOW_WIDTH  = 800;
-    static constexpr int WINDOW_HEIGHT = 600;
-    static constexpr int TARGET_FPS    = 60;
-
     Game();
     ~Game();
 

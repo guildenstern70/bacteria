@@ -11,6 +11,7 @@ add_executable(bacteria
     src/main.cpp
     src/Game.cpp
     src/Bacteria.cpp
+        src/config.h
 )
 
 target_include_directories(bacteria PRIVATE

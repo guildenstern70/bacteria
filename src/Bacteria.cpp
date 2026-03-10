@@ -26,15 +26,15 @@ static const char* NAME_SUFFIXES[] = {
     "bacter", "plasma", "dium",   "nella", "lobacter"
 };
 
-static int randInt(int lo, int hi) {
+static int randInt(const int lo, const int hi) {
     return std::uniform_int_distribution<int>(lo, hi)(rng());
 }
 
-static float randFloat(float lo, float hi) {
+static float randFloat(const float lo, const float hi) {
     return std::uniform_real_distribution<float>(lo, hi)(rng());
 }
 
-Bacteria::Bacteria(int screenWidth, int screenHeight) {
+Bacteria::Bacteria(const int screenWidth, const int screenHeight) {
     // Random name from prefix + suffix pool
     constexpr int np = std::size(NAME_PREFIXES);
     constexpr int ns = std::size(NAME_SUFFIXES);
@@ -65,7 +65,7 @@ Bacteria::Bacteria(int screenWidth, int screenHeight) {
     };
 }
 
-void Bacteria::update(float deltaTime, int screenWidth, int screenHeight) {
+void Bacteria::update(const float deltaTime, const int screenWidth, const int screenHeight) {
     m_age += deltaTime;
     m_x   += m_vx * deltaTime;
     m_y   += m_vy * deltaTime;
@@ -87,7 +87,7 @@ void Bacteria::update(float deltaTime, int screenWidth, int screenHeight) {
     }
 }
 
-bool Bacteria::contains(float mx, float my) const {
+bool Bacteria::contains(const float mx, const float my) const {
     const float dx = mx - m_x;
     const float dy = my - m_y;
     return (dx * dx + dy * dy) <= static_cast<float>(m_radius * m_radius);

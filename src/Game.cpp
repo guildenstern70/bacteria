@@ -8,6 +8,8 @@
 #include "Game.h"
 #include <SDL3/SDL.h>
 
+#include "config.h"
+
 Game::Game() = default;
 
 Game::~Game() {
@@ -36,21 +38,22 @@ bool Game::init() {
 
     for (int i = 0; i < 3; ++i) {
         m_bacteria.emplace_back(WINDOW_WIDTH, WINDOW_HEIGHT);
-        SDL_Log("Spawned bacteria: %s", m_bacteria.back().name().c_str());
     }
 
     return true;
 }
 
 void Game::run() {
-    constexpr float TARGET_FRAME_TIME = 1.0f / TARGET_FPS;
+    SDL_Log("Bacteria %s", VERSION.data());
+    SDL_Log("Welcome to the Bacteria Game!\n");
 
-    Uint64 perfFreq    = SDL_GetPerformanceFrequency();
+    constexpr float TARGET_FRAME_TIME = 1.0f / TARGET_FPS;
+    const Uint64 perfFreq    = SDL_GetPerformanceFrequency();
     Uint64 lastCounter = SDL_GetPerformanceCounter();
 
     while (m_running) {
-        Uint64 now       = SDL_GetPerformanceCounter();
-        float  deltaTime = static_cast<float>(now - lastCounter) / static_cast<float>(perfFreq);
+        const Uint64 now       = SDL_GetPerformanceCounter();
+        const float  deltaTime = static_cast<float>(now - lastCounter) / static_cast<float>(perfFreq);
         lastCounter      = now;
 
         handleEvents();
@@ -58,7 +61,7 @@ void Game::run() {
         render();
 
         // Cap frame rate
-        float elapsed = static_cast<float>(SDL_GetPerformanceCounter() - lastCounter)
+        const float elapsed = static_cast<float>(SDL_GetPerformanceCounter() - lastCounter)
                         / static_cast<float>(perfFreq);
         if (elapsed < TARGET_FRAME_TIME) {
             SDL_DelayNS(static_cast<Uint64>((TARGET_FRAME_TIME - elapsed) * 1e9f));
@@ -105,7 +108,7 @@ void Game::render() const {
         constexpr int  PAD   = 6;
         constexpr int  LINES = 2;
         const int panelW = static_cast<int>(b.name().size()) * FONT + PAD * 2;
-        const int panelH = LINES * (FONT + PAD) + PAD;
+        constexpr int panelH = LINES * (FONT + PAD) + PAD;
 
         // Position above the bacterium, clamped to screen
         int px = static_cast<int>(b.x()) - panelW / 2;
