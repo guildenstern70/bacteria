@@ -1,0 +1,21 @@
+# Build directories
+build/
+cmake-build-debug/
+cmake-build-release/
+
+# CMake generated
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Compiled binary
+bacteria
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.xcodeproj/
