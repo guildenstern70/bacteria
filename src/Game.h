@@ -24,7 +24,7 @@ public:
 private:
     void handleEvents();
     void update(float deltaTime);
-    void render();
+    void render() const;
 
     SDL_Window*           m_window    = nullptr;
     SDL_Renderer*         m_renderer  = nullptr;

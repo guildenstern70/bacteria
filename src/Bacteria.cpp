@@ -36,8 +36,8 @@ static float randFloat(float lo, float hi) {
 
 Bacteria::Bacteria(int screenWidth, int screenHeight) {
     // Random name from prefix + suffix pool
-    const int np = sizeof(NAME_PREFIXES) / sizeof(NAME_PREFIXES[0]);
-    const int ns = sizeof(NAME_SUFFIXES) / sizeof(NAME_SUFFIXES[0]);
+    constexpr int np = std::size(NAME_PREFIXES);
+    constexpr int ns = std::size(NAME_SUFFIXES);
     m_name = std::string(NAME_PREFIXES[randInt(0, np - 1)])
            + NAME_SUFFIXES[randInt(0, ns - 1)];
 
@@ -51,8 +51,8 @@ Bacteria::Bacteria(int screenWidth, int screenHeight) {
                     static_cast<float>(screenHeight - m_radius));
 
     // Random speed (20–50 px/s) in a random direction
-    float speed = randFloat(20.0f, 50.0f);
-    float angle = randFloat(0.0f, 2.0f * static_cast<float>(M_PI));
+    const float speed = randFloat(20.0f, 50.0f);
+    const float angle = randFloat(0.0f, 2.0f * static_cast<float>(M_PI));
     m_vx = speed * std::cos(angle);
     m_vy = speed * std::sin(angle);
 
@@ -88,14 +88,14 @@ void Bacteria::update(float deltaTime, int screenWidth, int screenHeight) {
 }
 
 bool Bacteria::contains(float mx, float my) const {
-    float dx = mx - m_x;
-    float dy = my - m_y;
+    const float dx = mx - m_x;
+    const float dy = my - m_y;
     return (dx * dx + dy * dy) <= static_cast<float>(m_radius * m_radius);
 }
 
 void Bacteria::drawFilledCircle(SDL_Renderer* renderer, int cx, int cy, int radius) {
     for (int dy = -radius; dy <= radius; ++dy) {
-        int dx = static_cast<int>(
+        const int dx = static_cast<int>(
             std::sqrt(static_cast<float>(radius * radius - dy * dy)));
         SDL_RenderLine(renderer, cx - dx, cy + dy, cx + dx, cy + dy);
     }

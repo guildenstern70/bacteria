@@ -88,7 +88,7 @@ void Game::update(float deltaTime) {
         b.update(deltaTime, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
-void Game::render() {
+void Game::render() const {
     SDL_SetRenderDrawColor(m_renderer, 10, 15, 10, 255); // dark green background
     SDL_RenderClear(m_renderer);
 
@@ -117,7 +117,7 @@ void Game::render() {
         // Dark semi-transparent background
         SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(m_renderer, 20, 20, 20, 210);
-        SDL_FRect panel = {
+        const SDL_FRect panel = {
             static_cast<float>(px),   static_cast<float>(py),
             static_cast<float>(panelW), static_cast<float>(panelH)
         };
